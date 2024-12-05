@@ -43,3 +43,18 @@ def remove_specific_tag(user_id, tag):
         {"user_id": user_id},
         {"$pull": {"tags": tag}}
     )
+
+def get_all_users():
+    # Example implementation for a MongoDB database
+    users = collection.find()  # Assuming `users` collection stores user data
+    all_users = {}
+
+    for user in users:
+        user_id = user.get("user_id")
+        user_data = {
+            "tags": user.get("tags", []),
+            "status": user.get("status", None)
+        }
+        all_users[user_id] = user_data
+
+    return all_users
