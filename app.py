@@ -12,6 +12,10 @@ BOT_TOKEN = os.environ.get("BOT_TOKEN")
 # Initialize the bot
 bot = TelegramClient('TMP_bot', API_ID, API_HASH).start(bot_token=BOT_TOKEN)
 
+# make username global so that it is accessible under other events
+global user_name
+global user_id
+
 @bot.on(events.NewMessage(pattern='/start'))
 async def handle_start_command(event):
     sender = await event.get_sender()
@@ -116,6 +120,27 @@ async def handle_tag_selection(event):
             await event.edit(f"Removed the tag: {tag}\n\nYour updated tracklist is:", buttons=markup)
         else:
             await event.respond("Invalid tag or already removed.")
+
+@bot.on(events.NewMessage(chats="@buy_smart_app"))
+async def handle_product_update(event):
+    # Fetch the channel message
+    channel_message = event.message.message.strip()
+
+    # Get all users and their tracked tags from the database
+    all_users = get_all_users()  # You need to implement this function in `db.py`
+
+    # Iterate through users and their tags
+    for user_id, user_data in all_users.items():
+        tags = user_data.get("tags", [])
+
+        # Check if any tag matches the channel message
+        for tag in tags:
+            if tag in channel_message:
+                try:
+                    await bot.send_message(user_id, f"New update related to your tracked tag '{tag}':\n\n{channel_message}")
+                except Exception as e:
+                    print(f"Error sending message to {user_id}: {e}")
+
 
 # Run the bot
 print("Bot is running...")
