@@ -42,9 +42,7 @@ async def handle_help_command(event):
     """
     Handle the /help command to display help information.
     """
-
     help_message = "Hello there!\n\nIf you're facing any issue with the bot, please message the developer here: @AnuragDubey"
-
     await event.respond(help_message)
 
 @bot.on(events.NewMessage(pattern='Track a product'))
