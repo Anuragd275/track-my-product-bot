@@ -25,11 +25,10 @@ async def handle_start_command(event):
 
     # Create interactive buttons
     buttons = [
-        [Button.text('Track a product')],
-        [Button.text('See my tracklist')],
-        [Button.text('Remove all products')],
-        [Button.text('Remove a specific product')],
+    [Button.text('Track a product', resize=True), Button.text('See my tracklist', resize=True)],
+    [Button.text('Remove all products', resize=True), Button.text('Remove a specific product', resize=True)],
     ]
+
     markup = event.client.build_reply_markup(buttons)
     
     await event.respond(
@@ -42,7 +41,9 @@ async def handle_help_command(event):
     """
     Handle the /help command to display help information.
     """
+
     help_message = "Hello there!\n\nIf you're facing any issue with the bot, please message the developer here: @AnuragDubey"
+
     await event.respond(help_message)
 
 @bot.on(events.NewMessage(pattern='Track a product'))
