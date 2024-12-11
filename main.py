@@ -144,8 +144,8 @@ async def handle_tag_selection(event):
     else:
         await event.respond("Invalid tag or already removed.")
 
-
-@bot.on(events.NewMessage(chats="@buy_smart_app"))
+# Channel Link: https://t.me/loot_deal_offers
+@bot.on(events.NewMessage(chats="@loot_deal_offers"))
 async def handle_product_update(event):
     """
     Monitors the specified channel for product updates and notifies users.
