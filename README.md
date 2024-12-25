@@ -4,6 +4,10 @@
 
 ---
 
+#### Bot Status: 🟢 Up and running!
+
+---
+
 ### Contributions
 
 Contributions are most welcome, if you find any bugs or want to request any feature, just raise a Issue/PR suitably.
